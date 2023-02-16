@@ -16,6 +16,7 @@ import { pokeApi } from '@/api'
 import { Pokemon, PokemonListResponse } from '@/interfaces'
 import { usePokemons } from '@/hooks'
 import { Layout } from '@/components/layouts'
+import { getPokemonInfo } from '@/utils'
 
 interface Props { pokemon: Pokemon }
 
@@ -104,14 +105,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const { name } = params as { name: string }
 
-    const { data } = await pokeApi
-                            .get< Pokemon >(`/pokemon/${ name }`)
-
     return {
         props: {
-            pokemon: data
+            pokemon: getPokemonInfo( name )
         }
     }
+    
 }
 
 export default PokemonByNamePage
