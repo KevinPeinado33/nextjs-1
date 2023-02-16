@@ -2,7 +2,7 @@ const STORAGE_FAVORITES = 'favorites'
 
 const toggleFavorite = ( id: number ) => {
 
-    let favorites: number [] = JSON.parse( localStorage.getItem( STORAGE_FAVORITES ) || '[]' )
+    let favorites: number [] = pokemons()
 
     if ( favorites.includes( id ) ) {
         favorites = favorites.filter( pokeId => pokeId !== id )
@@ -18,10 +18,18 @@ const existInFavorites = ( id: number ): boolean => {
 
     if ( typeof window === 'undefined' ) return false 
 
-    const favorites: number[] = JSON.parse( localStorage.getItem( STORAGE_FAVORITES ) || '[]' )
+    const favorites: number[] = pokemons()
 
     return favorites.includes( id )
 
 }
 
-export default { toggleFavorite, existInFavorites }
+const pokemons = (): number [] => {
+    return JSON.parse( localStorage.getItem( STORAGE_FAVORITES ) || '[]' )
+}
+
+export default { 
+    toggleFavorite, 
+    existInFavorites, 
+    pokemons 
+}
